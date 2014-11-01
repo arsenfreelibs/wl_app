@@ -6,5 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="places">Places</string>
     <string name="workouts">workouts</string>
+    <string name="exercises">exercises</string>
+    <string name="addWorkout">Add workout</string>
+    <string name="addExercises">Add Exercises</string>
 
 </resources>

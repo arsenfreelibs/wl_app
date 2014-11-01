@@ -10,16 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.hackathon.workoutlogger.MainActivity;
 import com.hackathon.workoutlogger.R;
+import com.hackathon.workoutlogger.models.exercises.Exercises;
+import com.hackathon.workoutlogger.view.adapter.ExercisesAdapter;
 
 /**
  * Created by AAR on 11/1/14.
  */
-public class WorkoutFragment extends Fragment {
+public class ExercisesFragment extends Fragment {
 
     private ListView mListView;
-    private ArrayAdapter<String> mAdapter;
+    private ExercisesAdapter mAdapter;
 
 //    private MediaDataProvider mMediaDataProvider;
 
@@ -28,7 +29,7 @@ public class WorkoutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.workout_list_fragment, null, false);
+        View view = inflater.inflate(R.layout.exercises_list_fragment, null, false);
 
         createProgressDialog();
         installListView(view);
@@ -53,9 +54,8 @@ public class WorkoutFragment extends Fragment {
     }
 
     private void installListView(View view) {
-        mListView = (ListView) view.findViewById(R.id.lvWorkouts);
-        mAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1);
+        mListView = (ListView) view.findViewById(R.id.lvExercises);
+        mAdapter = new ExercisesAdapter(getActivity());
 
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,7 +63,7 @@ public class WorkoutFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view,
                                     int position, long id) {
 
-                ((MainActivity) getActivity()).switchToExercisesFragment();
+//                ((MainActivity) getActivity()).switchToVideoFragment(mMediaDataProvider.getUriById(position));
             }
         });
     }
@@ -72,9 +72,9 @@ public class WorkoutFragment extends Fragment {
 //        mAdapter.addAll(mMediaDataProvider.getTitles());
 
         //TODO: for debug
-        mAdapter.add("qwert");
-        mAdapter.add("asdasd");
-        mAdapter.add("sdfsdfsdf");
+        mAdapter.add(new Exercises("ex item 1"));
+        mAdapter.add(new Exercises("ex item 2"));
+        mAdapter.add(new Exercises("ex item 3"));
     }
 
     private void createProgressDialog() {

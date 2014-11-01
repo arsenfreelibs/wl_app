@@ -17,6 +17,7 @@ import com.hackathon.workoutlogger.network.TransitionManager;
 import com.hackathon.workoutlogger.network.TransitionManagerImpl;
 import com.hackathon.workoutlogger.network.TransmitProtocolImpl;
 import com.hackathon.workoutlogger.network.TransmitterImpl;
+import com.hackathon.workoutlogger.viewModels.ExercisesFragment;
 import com.hackathon.workoutlogger.viewModels.LoginFragment;
 import com.hackathon.workoutlogger.viewModels.PlaceListFragment;
 import com.hackathon.workoutlogger.viewModels.WorkoutFragment;
@@ -30,6 +31,7 @@ public class MainActivity extends Activity {
     private TransitionManagerImpl mTransitionManager;
     private PlaceListFragment mPlaceListFragment;
     private WorkoutFragment mWorkoutFragment;
+    private ExercisesFragment mExercisesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,11 @@ public class MainActivity extends Activity {
         switchToFragment(mWorkoutFragment);
     }
 
+
+    public void switchToExercisesFragment() {
+        switchToFragment(mExercisesFragment);
+    }
+
     private void switchToFragment(Fragment fragment) {
         mFragmentTrans = getFragmentManager().beginTransaction();
         mFragmentTrans.replace(R.id.container, fragment);
@@ -83,6 +90,8 @@ public class MainActivity extends Activity {
         mPlaceListFragment = new PlaceListFragment();
 
         mWorkoutFragment = new WorkoutFragment();
+
+        mExercisesFragment = new ExercisesFragment();
     }
 
 
