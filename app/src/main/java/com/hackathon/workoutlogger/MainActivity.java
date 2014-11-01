@@ -1,7 +1,6 @@
 package com.hackathon.workoutlogger;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
@@ -11,15 +10,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
+import com.hackathon.workoutlogger.controllers.user.UserController;
+import com.hackathon.workoutlogger.controllers.user.UserControllerImpl;
+import com.hackathon.workoutlogger.network.TransitionManager;
+import com.hackathon.workoutlogger.network.TransitionManagerImpl;
+import com.hackathon.workoutlogger.network.TransmitProtocolImpl;
+import com.hackathon.workoutlogger.network.TransmitterImpl;
 import com.hackathon.workoutlogger.viewModels.LoginFragment;
+import com.hackathon.workoutlogger.viewModels.PlaceListFragment;
+import com.hackathon.workoutlogger.viewModels.WorkoutFragment;
 
 
 public class MainActivity extends Activity {
 
     private LoginFragment mLoginFragment;
     private FragmentTransaction mFragmentTrans;
+    private UserControllerImpl mUserController;
+    private TransitionManagerImpl mTransitionManager;
+    private PlaceListFragment mPlaceListFragment;
+    private WorkoutFragment mWorkoutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +54,35 @@ public class MainActivity extends Activity {
         mFragmentTrans.commit();
     }
 
+    public void switchToPlaceFragment() {
+        switchToFragment(mPlaceListFragment);
+    }
+
+    public void switchToWorkoutFragment() {
+        switchToFragment(mWorkoutFragment);
+    }
+
+    private void switchToFragment(Fragment fragment) {
+        mFragmentTrans = getFragmentManager().beginTransaction();
+        mFragmentTrans.replace(R.id.container, fragment);
+        mFragmentTrans.addToBackStack(null);
+        mFragmentTrans.commit();
+    }
+
     private void createApp() {
+
+        mTransitionManager = new TransitionManagerImpl();
+        mTransitionManager.setTransmitProtocol(new TransmitProtocolImpl(new TransmitterImpl()));
+
+        mUserController = new UserControllerImpl();
+        mUserController.setTransitionManager(mTransitionManager);
+
         mLoginFragment = new LoginFragment();
+        mLoginFragment.setUserController(mUserController);
+
+        mPlaceListFragment = new PlaceListFragment();
+
+        mWorkoutFragment = new WorkoutFragment();
     }
 
 

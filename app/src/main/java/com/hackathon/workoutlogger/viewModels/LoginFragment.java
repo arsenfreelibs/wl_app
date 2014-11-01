@@ -11,12 +11,14 @@ import android.widget.Toast;
 
 import com.hackathon.workoutlogger.MainActivity;
 import com.hackathon.workoutlogger.R;
+import com.hackathon.workoutlogger.controllers.user.UserController;
+import com.hackathon.workoutlogger.controllers.user.UserLoginListener;
 import com.hackathon.workoutlogger.models.user.User;
 
 public class LoginFragment extends Fragment {
 
-//    private UserProvider mUserProvider;
     private ProgressDialog progressDialog;
+    private UserController mUserController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,17 +48,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void tryToLoginOnServer(User user) {
-//        mUserProvider.UserLogin(user, new UserLoginListener() {
-//            @Override
-//            public void UserLoginResult(boolean result) {
-//                progressDialog.dismiss();
-//                if (result) {
-//                    SwitchToMediaListFragment();
-//                } else {
-//                    sendIncorrectUserOrPassw();
-//                }
-//            }
-//        });
+        mUserController.UserLogin(user, new UserLoginListener() {
+            @Override
+            public void UserLoginResult(boolean result) {
+                progressDialog.dismiss();
+                if (result) {
+                    SwitchToMediaListFragment();
+                } else {
+                    sendIncorrectUserOrPassword();
+                }
+            }
+        });
     }
 
     private void createProgressDialog() {
@@ -68,19 +70,19 @@ public class LoginFragment extends Fragment {
 
     private void SwitchToMediaListFragment() {
         MainActivity mainActivity = (MainActivity) getActivity();
-//        mainActivity.setMediaFragment();
+        mainActivity.switchToPlaceFragment();
     }
 
-    private void sendIncorrectUserOrPassw() {
+    private void sendIncorrectUserOrPassword() {
         Toast toast = Toast.makeText(getActivity(), "Incorrect user name ore password", Toast.LENGTH_LONG);
         toast.show();
     }
-//
-//    public UserProvider getUserProvider() {
-//        return mUserProvider;
-//    }
-//
-//    public void setUserProvider(UserProvider mUserProvider) {
-//        this.mUserProvider = mUserProvider;
-//    }
+
+    public UserController getUserProvider() {
+        return mUserController;
+    }
+
+    public void setUserController(UserController mUserProvider) {
+        this.mUserController = mUserProvider;
+    }
 }

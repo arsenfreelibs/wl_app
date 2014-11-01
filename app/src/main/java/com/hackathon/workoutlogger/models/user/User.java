@@ -5,25 +5,35 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    @Expose
-    @SerializedName(value = "name")
-    private String mName;
+//    {"id":1,"email":"john111@mailinator.com","admin":false,"locked":false,"created_at":"2014-11-01T18:13:08.661Z","updated_at":"2014-11-01T18:13:08.661Z","first_name":"John","last_name":"Doe","access_token":"KZk_-fAvc1BCBZwSmms6"}
 
     @Expose
-    @SerializedName(value = "password")
+    @SerializedName(value = "email")
+    private String mEmail;
+
+    @Expose
+    @SerializedName(value = "access_token")
+    private String mAccessToken;
+
+
+
     private String mPassword;
 
-    public User(String name, String password) {
-        mName = name;
+    public User(String email, String password) {
+        mEmail = email;
         mPassword = password;
+        mAccessToken = "";
     }
 
     public String getName() {
-        return mName;
+        return mEmail;
     }
 
     public String getPassword() {
         return mPassword;
     }
 
+    public String getAccessToken() {
+        return mAccessToken;
+    }
 }
