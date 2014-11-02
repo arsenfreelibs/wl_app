@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.hackathon.workoutlogger.R;
 import com.hackathon.workoutlogger.models.exercises.Exercises;
+import com.hackathon.workoutlogger.models.exercises.ExercisesOnlyTime;
 import com.hackathon.workoutlogger.view.adapter.ExercisesAdapter;
 
 /**
@@ -73,7 +74,7 @@ public class ExercisesFragment extends Fragment {
 
         //TODO: for debug
         mAdapter.add(new Exercises("ex item 1"));
-        mAdapter.add(new Exercises("ex item 2"));
+        mAdapter.add(new ExercisesOnlyTime("ex item 2","123","13:00"));
         mAdapter.add(new Exercises("ex item 3"));
     }
 
